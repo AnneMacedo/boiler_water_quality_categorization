@@ -38,12 +38,11 @@ def categorize_synthetic_data(row, param_data):
         return "nonconforming"
 
 
-param_data = pd.read_csv("param_data.csv")
-synthetic_data = pd.read_csv("synthetic_data.csv")
+param_data = pd.read_csv("..\data\param_data.csv")
+synthetic_data = pd.read_csv("..\data\synthetic_data.csv")
 
 synthetic_data["conformity_class"] = synthetic_data.apply(
     lambda row: categorize_synthetic_data(row, param_data), axis=1
 )
-# print(synthetic_data.iloc[0:20])
 
-synthetic_data.to_csv("synthetic_conformity_data.csv", index=False)
+synthetic_data.to_csv("..\data\synthetic_conformity_data.csv", index=False)
