@@ -30,7 +30,9 @@ def get_list_random_param(value_max, value_min, k_choices=50):
     return random.choices(number_list, k=k_choices)
 
 
-param_data = pd.read_csv("param_data.csv")
+param_data = pd.read_csv("..\data\param_data.csv")
+
+random.seed(6523)
 
 random_pressure = []
 random_column = []
@@ -49,7 +51,11 @@ for row in range(0, param_data.shape[0]):
             column_data = param_data[column][row:]
             min_value = column_data.min()
             max_value = column_data.max()
-            # print(row, column, min_value, max_value)
+
+            # print(
+            #     f"row_number={row}, column={column}, min={min_value}, max={max_value}"
+            # )
+
             random_column_list = get_list_random_param(max_value, min_value)
 
             random_column = data.get(column, [])
@@ -59,8 +65,9 @@ for row in range(0, param_data.shape[0]):
     # print("-----------------------------------")
 
 synthetic_data = pd.DataFrame(data=data)
-# for column in synthetic_data:
-#     print(column, synthetic_data[column].min(), synthetic_data[column].max())
-#     print("-----------------------------------")
+for column in synthetic_data:
+    print(
+        f"column={column}, min={synthetic_data[column].min()}, max={synthetic_data[column].max()}"
+    )
 
-synthetic_data.to_csv("synthetic_data.csv", index=False)
+synthetic_data.to_csv("..\data\synthetic_data.csv", index=False)
